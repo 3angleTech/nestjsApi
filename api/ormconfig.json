@@ -1,0 +1,10 @@
+{
+    "type": "postgres",
+    "host": "3at-nest-postgres",
+    "port": 5432,
+    "username": "threeangle",
+    "password": null,
+    "database": "threeangle",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "synchronize": true
+}

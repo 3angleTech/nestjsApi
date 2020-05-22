@@ -1,0 +1,16 @@
+version: '3'
+services:
+  3at-nest-postgres:
+    container_name: 3at-nest-postgres
+    build: ./docker/postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+  3at-nest-api:
+    container_name: 3at-nest-api
+    build: ./api
+    depends_on:
+      - 3at-nest-postgres
+    ports:
+      - "3000:3000"
