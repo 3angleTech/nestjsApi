@@ -4,6 +4,8 @@
 $ npm install
 ```
 
+Add ```127.0.0.1 3at-nest-postgres``` to ```/etc/hosts``` so you can run the app locally also, not only in docker container.
+
 ## Running the app
 
 ```bash
