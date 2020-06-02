@@ -1,12 +1,33 @@
-import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Put, Delete, HttpException, Req, BadRequestException} from '@nestjs/common';
 import { AppService } from './app.service';
+import { OpenIdService } from './openid.service'
+import * as Collections from 'typescript-collections';
 
 @Controller('api')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService,
+              private readonly openIdService: OpenIdService
+  ) {}
 
   @Get('dummy')
-  getAll(): string {
+  getAll(@Req() request): string {
+    let desiredRoles: Collections.Set<string> = new Collections.Set<string>();
+    desiredRoles.add("USER");
+
+    // TODO: We need to replace this AOP, proxy or smth similar
+    let accessToken;
+    try {
+      accessToken = request.headers["authorization"].split(" ")[1];
+    } catch (e) {
+      throw new BadRequestException("Authorization Bearer is invalid");
+    }
+
+    let roles: Collections.Set<string> = this.openIdService.extractRoles(accessToken);
+
+    if (!this.openIdService.isAuthorized(desiredRoles, roles)) {
+      throw new HttpException("Not Authorized", 403);
+    }
+
     return this.appService.getAll();
   }
 
@@ -21,7 +42,24 @@ export class AppController {
   }
 
   @Delete('dummy')
-  delete(): string {
+  delete(@Req() request): string {
+    let desiredRoles: Collections.Set<string> = new Collections.Set<string>();
+    desiredRoles.add("ADMIN");
+
+    // TODO: We need to replace this AOP, proxy or smth similar
+    let accessToken;
+    try {
+      accessToken = request.headers["authorization"].split(" ")[1];
+    } catch (e) {
+      throw new BadRequestException("Authorization Bearer is invalid");
+    }
+
+    let roles: Collections.Set<string> = this.openIdService.extractRoles(accessToken);
+
+    if (!this.openIdService.isAuthorized(desiredRoles, roles)) {
+      throw new HttpException("Not Authorized", 403);
+    }
+
     return this.appService.delete();
   }
 }

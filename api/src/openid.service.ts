@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
+import * as jwt from "jsonwebtoken";
+import * as Collections from "typescript-collections";
+import * as has from 'lodash/has';
 
 const fetch = require('node-fetch');
 
 @Injectable()
 export class OpenIdService {
     clientId = '3at-nest-api'
-    clientSecret = 'f78214cf-980d-41c2-8fc8-5ed1e79bc123'
+    clientSecret = 'b8b62159-693a-4676-ac7d-8ebff41552a3'
 
     async exchangeCredentials(): Promise<any> {
         const encodedCredentials = Buffer.from(this.clientId + ":" + this.clientSecret).toString('base64');
@@ -78,5 +81,38 @@ export class OpenIdService {
         });
 
         return response.json();
+    }
+
+    extractRoles(accessToken: string): Collections.Set<string> {
+        const decodedJwt = jwt.decode(accessToken);
+        let roles: Collections.Set<string> = new Collections.Set<string>();
+        // @ts-ignore
+        const { realm_access } = decodedJwt;
+
+        if (has(realm_access, 'roles')) {
+            // @ts-ignore
+            realm_access.roles.concat(decodedJwt.resource_access[this.clientId].roles).forEach(tmp => {
+                roles.add(tmp);
+            });
+        } else {
+            // @ts-ignore
+            decodedJwt.resource_access[this.clientId].roles.forEach(tmp => {
+                roles.add(tmp);
+            });
+        }
+
+        return roles;
+    }
+
+    isAuthorized(desiredRoles: Collections.Set<string>, roles: Collections.Set<string>): boolean {
+        let result = true;
+        desiredRoles.forEach(role => {
+            if (!roles.contains(role)) {
+                result = false;
+                return;
+            }
+        })
+
+        return result;
     }
 }
