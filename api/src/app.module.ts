@@ -20,6 +20,8 @@ import { Dialect } from 'sequelize/types';
         password: configService.getPostgresDBConfiguration().password,
         database: configService.getPostgresDBConfiguration().database,
         dialect: <Dialect>configService.getPostgresDBConfiguration().dialect,
+        autoLoadModels: true,
+        synchronize: true,
       }),
       inject: [AppConfigurationService],
     }),
