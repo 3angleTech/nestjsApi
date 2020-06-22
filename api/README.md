@@ -31,3 +31,13 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Development
+
+Adding modules, services, controllers:
+
+```bash
+nest generate module [MODULE_NAME] --no-spec
+nest generate service [SERVICE_NAME] --flat
+nest generate controller [CONTROLLER_NAME] --flat --no-spec
+```
