@@ -1,6 +1,7 @@
 import {BadRequestException, Body, Controller, Get, HttpCode, Post} from '@nestjs/common';
 import {OpenIdService} from "./openid.service";
-import * as has from 'lodash/has';
+
+import * as _ from "lodash";
 
 @Controller('openid')
 export class OpenIdController {
@@ -22,7 +23,7 @@ export class OpenIdController {
     @HttpCode(200)
     async accessTokenIsValid(@Body() accessTokenReqDTO: any): Promise<boolean> {
         const result = await this.openIdService.accessTokenIsValid(accessTokenReqDTO.accessToken);
-        if (has(result, 'error')) {
+        if (_.has(result, 'error')) {
             throw new BadRequestException(result);
         }
         return true;
@@ -32,7 +33,7 @@ export class OpenIdController {
     @HttpCode(200)
     async refreshTokens(@Body() refreshTokenReqDTO: any): Promise<object> {
         const result = await this.openIdService.refreshTokens(refreshTokenReqDTO.refreshToken);
-        if (has(result, 'error')) {
+        if (_.has(result, 'error')) {
             throw new BadRequestException(result);
         }
         return result;
