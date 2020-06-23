@@ -3,14 +3,18 @@
  * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
  * Available under MIT license
  */
-// tslint:disable-next-line: no-require-imports
-import Joi = require('@hapi/joi');
+import * as Joi from '@hapi/joi';
 
-// tslint:disable-next-line: typedef
-export const configModuleOptions = () => ({
+const DEFAULT_SERVER_PORT = 3000;
+
+export const configModuleOptions = (): object => ({
   expandVariables: true,
   isGlobal: true,
   validationSchema: Joi.object({
+    /**
+     * Server port
+     */
+    SERVER_PORT: Joi.number().default(DEFAULT_SERVER_PORT),
     /**
      * Posgres DB configurations
      */
