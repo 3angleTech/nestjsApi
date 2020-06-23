@@ -6,7 +6,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { configModuleOptions } from './config-module-options';
+import { configModuleOptions } from './app-configuration.constants';
 import { AppConfigurationService } from './services/app-configuration.service';
 
 @Global()

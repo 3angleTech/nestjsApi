@@ -5,12 +5,12 @@
  */
 import { NestFactory } from '@nestjs/core';
 
-import { AppConfigurationService } from './app-configuration';
+import { APP_CONFIGURATION_SERVICE_PROVIDER, AppConfigurationService } from './app-configuration';
 import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  const config: AppConfigurationService = app.get('AppConfigurationService');
-  await app.listen(config.getPort());
+  const config: AppConfigurationService = app.get(APP_CONFIGURATION_SERVICE_PROVIDER);
+  await app.listen(config.getServerPort());
 }
 bootstrap();
