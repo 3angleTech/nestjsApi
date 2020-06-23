@@ -1,14 +1,20 @@
-import { Module, Global } from '@nestjs/common';
-import { AppConfigurationService } from './services/app-configuration.service';
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+
 import { configModuleOptions } from './config-module-options';
+import { AppConfigurationService } from './services/app-configuration.service';
 
 @Global()
 @Module({
   imports: [
-    ConfigModule.forRoot(configModuleOptions())
+    ConfigModule.forRoot(configModuleOptions()),
   ],
   providers: [AppConfigurationService],
   exports: [AppConfigurationService],
 })
-export class AppConfigurationModule {}
+export class AppConfigurationModule { }

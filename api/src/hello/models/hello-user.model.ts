@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
 import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table({
@@ -6,11 +11,11 @@ import { Column, Model, Table } from 'sequelize-typescript';
 })
 export class HelloUser extends Model<HelloUser> {
   @Column
-  firstName: string;
+  public firstName: string;
 
   @Column
-  lastName: string;
+  public lastName: string;
 
   @Column({ defaultValue: true })
-  isActive: boolean;
+  public isActive: boolean;
 }

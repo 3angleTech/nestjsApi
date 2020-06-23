@@ -38,6 +38,7 @@
     "sequelize-typescript": "^1.1.0"
   },
   "devDependencies": {
+    "@3angletech/tslint": "1.1.0",
     "@nestjs/cli": "^7.1.5",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.11",
@@ -60,7 +61,10 @@
     "ts-loader": "^7.0.4",
     "ts-node": "^8.10.1",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "tslint": "5.20.1",
+    "tslint-microsoft-contrib": "6.2.0",
+    "tslint-sonarts": "1.9.0"
   },
   "jest": {
     "moduleFileExtensions": [

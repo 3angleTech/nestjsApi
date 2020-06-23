@@ -1,8 +1,11 @@
-## IDE Prerequisites
-VSCode
+## Prerequisites
 
+VSCode
 VSCode Plugins:
 * EditorConfig: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+* TSLint:       https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin
+
+Node.js: min lts/erbium
 
 ## Installation
 

@@ -1,14 +1,20 @@
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
 import { Injectable } from '@nestjs/common';
-import { AppConfigurationService, PostgresDBConfiguration } from 'src/app-configuration';
+import { AppConfigurationService, IPostgresDBConfiguration } from 'src/app-configuration';
 
 @Injectable()
 export class HelloService {
     constructor(private readonly appConfigurationService: AppConfigurationService) { }
 
-    getAll(): string {
-        let dbConfig: PostgresDBConfiguration = this.appConfigurationService.getPostgresDBConfiguration();
+    public getAll(): string {
+        const dbConfig: IPostgresDBConfiguration = this.appConfigurationService.getPostgresDBConfiguration();
+        // tslint:disable-next-line: no-console
         console.log(JSON.stringify(dbConfig));
-        
+
         return 'getAll hello API';
     }
 }
