@@ -5,8 +5,10 @@
  */
 import { Column, Model, Table } from 'sequelize-typescript';
 
+import { TABLE_HELLO_USERS } from '../hello.constants';
+
 @Table({
-  tableName: 'HELLO_USERS',
+  tableName: TABLE_HELLO_USERS,
   underscored: true,
 })
 export class HelloUser extends Model<HelloUser> {

@@ -7,6 +7,15 @@ import * as Joi from '@hapi/joi';
 
 const DEFAULT_SERVER_PORT = 3000;
 
+export const SERVER_PORT = 'SERVER_PORT';
+
+export const POSTGRES_USER = 'POSTGRES_USER';
+export const POSTGRES_PASSWORD = 'POSTGRES_PASSWORD';
+export const POSTGRES_DATABASE = 'POSTGRES_DATABASE';
+export const POSTGRES_HOST = 'POSTGRES_HOST';
+export const POSTGRES_PORT = 'POSTGRES_PORT';
+export const POSTGRES_DIALECT = 'POSTGRES_DIALECT';
+
 export const configModuleOptions = (): object => ({
   expandVariables: true,
   isGlobal: true,
