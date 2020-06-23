@@ -1,11 +1,16 @@
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 
+import { AppConfigurationService } from './app-configuration';
+import { AppConfigurationModule } from './app-configuration/app-configuration.module';
+import { HelloModule } from './hello';
 import { OpenIdController } from './openid.controller';
 import { OpenIdService } from './openid.service';
-import { HelloModule } from './hello';
-import { AppConfigurationModule } from './app-configuration/app-configuration.module';
-import { AppConfigurationService } from './app-configuration';
 import { sequelizeModuleFactory } from './sequelize.config';
 
 @Module({
@@ -21,4 +26,4 @@ import { sequelizeModuleFactory } from './sequelize.config';
   controllers: [OpenIdController],
   providers: [OpenIdService],
 })
-export class AppModule {}
+export class AppModule { }

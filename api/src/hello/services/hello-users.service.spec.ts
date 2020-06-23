@@ -1,4 +1,10 @@
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { HelloUsersService } from './hello-users.service';
 
 describe('HelloUsersService', () => {

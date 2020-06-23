@@ -1,5 +1,12 @@
-import Joi = require("@hapi/joi");
+/**
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
+ */
+// tslint:disable-next-line: no-require-imports
+import Joi = require('@hapi/joi');
 
+// tslint:disable-next-line: typedef
 export const configModuleOptions = () => ({
   expandVariables: true,
   isGlobal: true,

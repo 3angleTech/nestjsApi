@@ -1,7 +1,9 @@
 /**
- * Defines postgres configuration information structure
+ * @license
+ * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
+ * Available under MIT license
  */
-export interface PostgresDBConfiguration {
+export interface IPostgresDBConfiguration {
     username: string;
     password: string;
     database: string;
