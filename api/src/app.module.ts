@@ -6,23 +6,14 @@ import { OpenIdService } from './openid.service';
 import { HelloModule } from './hello';
 import { AppConfigurationModule } from './app-configuration/app-configuration.module';
 import { AppConfigurationService } from './app-configuration';
-import { Dialect } from 'sequelize/types';
+import { sequelizeModuleFactory } from './sequelize.config';
 
 @Module({
   imports: [
     AppConfigurationModule,
     SequelizeModule.forRootAsync({
       imports: [AppConfigurationModule],
-      useFactory: async (configService: AppConfigurationService) => ({
-        host: configService.getPostgresDBConfiguration().host,
-        port: configService.getPostgresDBConfiguration().port,
-        username: configService.getPostgresDBConfiguration().username,
-        password: configService.getPostgresDBConfiguration().password,
-        database: configService.getPostgresDBConfiguration().database,
-        dialect: <Dialect>configService.getPostgresDBConfiguration().dialect,
-        autoLoadModels: true,
-        synchronize: true,
-      }),
+      useFactory: sequelizeModuleFactory,
       inject: [AppConfigurationService],
     }),
     HelloModule,
