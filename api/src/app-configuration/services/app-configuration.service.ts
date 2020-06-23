@@ -22,4 +22,8 @@ export class AppConfigurationService {
       dialect: this.configService.get('POSTGRES_DIALECT'),
     };
   }
+
+  public getPort(): number {
+    return this.configService.get('SERVER_PORT');
+  }
 }

@@ -3,12 +3,12 @@
  * Copyright (c) 2019 THREEANGLE SOFTWARE SOLUTIONS SRL
  * Available under MIT license
  */
+import { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types';
 
 import { AppConfigurationService, IPostgresDBConfiguration } from './app-configuration';
 
-// tslint:disable-next-line: typedef
-const getPostgresParams = (config: IPostgresDBConfiguration) => {
+const getPostgresParams = (config: IPostgresDBConfiguration): SequelizeModuleOptions => {
   return {
     host: config.host,
     port: config.port,
@@ -19,8 +19,7 @@ const getPostgresParams = (config: IPostgresDBConfiguration) => {
   };
 };
 
-// tslint:disable-next-line: typedef
-export const sequelizeModuleFactory = async (configService: AppConfigurationService) => ({
+export const sequelizeModuleFactory = async (configService: AppConfigurationService): Promise<SequelizeModuleOptions> => ({
   ...getPostgresParams(configService.getPostgresDBConfiguration()),
   autoLoadModels: true,
   synchronize: true,
