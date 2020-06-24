@@ -50,3 +50,8 @@ nest generate module [MODULE_NAME] --no-spec
 nest generate service [SERVICE_NAME] --flat
 nest generate controller [CONTROLLER_NAME] --flat --no-spec
 ```
+
+Debugging
+
+* Open directly the `api` folder in VSCode.
+* Run the already available `Debug Api` debug configuration.
