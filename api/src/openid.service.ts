@@ -6,6 +6,7 @@
 import { Injectable } from '@nestjs/common';
 import * as jwt from "jsonwebtoken";
 import * as Collections from "typescript-collections";
+// @ts-ignore
 import * as has from 'lodash/has';
 
 const fetch = require('node-fetch');
@@ -13,7 +14,7 @@ const fetch = require('node-fetch');
 @Injectable()
 export class OpenIdService {
   private readonly CLIENT_ID: string = '3at-nest-api';
-  private readonly CLIENT_SECRET: string = 'b8b62159-693a-4676-ac7d-8ebff41552a3';
+  private readonly CLIENT_SECRET: string = 'd0e45e07-cf11-48ff-a6f8-87a2060d6055';
 
   async exchangeCredentials(): Promise<any> {
     const encodedCredentials = Buffer.from(`${this.CLIENT_ID}:${this.CLIENT_SECRET}`).toString('base64');
@@ -88,35 +89,35 @@ export class OpenIdService {
 
 
   public extractRoles(accessToken: string): Collections.Set<string> {
-        const decodedJwt = jwt.decode(accessToken);
-        let roles: Collections.Set<string> = new Collections.Set<string>();
+    const decodedJwt = jwt.decode(accessToken);
+    let roles: Collections.Set<string> = new Collections.Set<string>();
+    // @ts-ignore
+    const { realm_access } = decodedJwt;
+
+    if (has(realm_access, 'roles')) {
         // @ts-ignore
-        const { realm_access } = decodedJwt;
+        realm_access.roles.concat(decodedJwt.resource_access[this.clientId].roles).forEach(tmp => {
+            roles.add(tmp);
+        });
+    } else {
+        // @ts-ignore
+        decodedJwt.resource_access[this.clientId].roles.forEach(tmp => {
+            roles.add(tmp);
+        });
+    }
 
-        if (has(realm_access, 'roles')) {
-            // @ts-ignore
-            realm_access.roles.concat(decodedJwt.resource_access[this.clientId].roles).forEach(tmp => {
-                roles.add(tmp);
-            });
-        } else {
-            // @ts-ignore
-            decodedJwt.resource_access[this.clientId].roles.forEach(tmp => {
-                roles.add(tmp);
-            });
+    return roles;
+  }
+
+  public isAuthorized(desiredRoles: Collections.Set<string>, roles: Collections.Set<string>): boolean {
+    let result = true;
+    desiredRoles.forEach(role => {
+        if (!roles.contains(role)) {
+            result = false;
+            return;
         }
+    })
 
-        return roles;
-    }
-
-    public isAuthorized(desiredRoles: Collections.Set<string>, roles: Collections.Set<string>): boolean {
-        let result = true;
-        desiredRoles.forEach(role => {
-            if (!roles.contains(role)) {
-                result = false;
-                return;
-            }
-        })
-
-        return result;
-    }
+    return result;
+  }
 }
