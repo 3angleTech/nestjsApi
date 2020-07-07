@@ -10,10 +10,11 @@ import { HelloController } from './controllers/hello.controller';
 import { HelloUser } from './models/hello-user.model';
 import { HelloUsersService } from './services/hello-users.service';
 import { HelloService } from './services/hello.service';
+import {OpenIdService} from "../openid.service";
 
 @Module({
   imports: [SequelizeModule.forFeature([HelloUser])],
   controllers: [HelloController],
-  providers: [HelloService, HelloUsersService],
+  providers: [HelloService, HelloUsersService, OpenIdService],
 })
 export class HelloModule { }
