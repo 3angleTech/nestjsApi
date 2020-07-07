@@ -14,7 +14,7 @@ const fetch = require('node-fetch');
 @Injectable()
 export class OpenIdService {
   private readonly CLIENT_ID: string = '3at-nest-api';
-  private readonly CLIENT_SECRET: string = 'd0e45e07-cf11-48ff-a6f8-87a2060d6055';
+  private readonly CLIENT_SECRET: string = '05c795a7-13c3-469c-af22-3b44318003d9';
 
   async exchangeCredentials(): Promise<any> {
     const encodedCredentials = Buffer.from(`${this.CLIENT_ID}:${this.CLIENT_SECRET}`).toString('base64');
@@ -96,12 +96,12 @@ export class OpenIdService {
 
     if (has(realm_access, 'roles')) {
         // @ts-ignore
-        realm_access.roles.concat(decodedJwt.resource_access[this.clientId].roles).forEach(tmp => {
+        realm_access.roles.concat(decodedJwt.resource_access[this.CLIENT_ID].roles).forEach(tmp => {
             roles.add(tmp);
         });
     } else {
         // @ts-ignore
-        decodedJwt.resource_access[this.clientId].roles.forEach(tmp => {
+        decodedJwt.resource_access[this.CLIENT_ID].roles.forEach(tmp => {
             roles.add(tmp);
         });
     }
